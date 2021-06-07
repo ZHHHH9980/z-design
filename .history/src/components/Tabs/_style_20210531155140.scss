@@ -1,0 +1,16 @@
+.tabs {
+  display: flex;
+}
+.tabs-item {
+  margin-bottom: 30px;
+  list-style: none;
+
+  .tabs-label {
+    cursor: pointer;
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    &:hover,
+    &.is-actived {
+      color: $menu-item-active-color;
+    }
+  }
+}

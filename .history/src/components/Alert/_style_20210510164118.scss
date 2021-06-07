@@ -1,0 +1,14 @@
+.alert {
+  position: relative;
+  left: 25%;
+  width: 50%;
+  padding: $alert-padding-y $alert-padding-x;
+  border-radius: $alert-border-radius;
+  @include alert-style($primary, $primary, $white);
+
+  .close {
+    position: absolute;
+    right: 5%;
+    top: 5%;
+  }
+}

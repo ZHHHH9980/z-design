@@ -1,0 +1,10 @@
+.tabs {
+  display: flex;
+}
+.tabs-label {
+  box-shadow: $menu-box-shadow;
+}
+.tabs-item {
+  margin-bottom: 30px;
+  list-style: none;
+}

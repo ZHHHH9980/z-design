@@ -1,0 +1,31 @@
+.tabs {
+  display: flex;
+}
+.tabs-item {
+  margin-bottom: 30px;
+  list-style: none;
+  border: 1px solid transparent;
+  border-bottom-color: $gray-400;
+
+  &.is-actived {
+    color: $menu-item-active-color;
+    border-color: $gray-400;
+    border-bottom-color: transparent;
+  }
+  .tabs-label {
+    border-radius: 25%;
+    cursor: pointer;
+    padding: $menu-item-padding-y $menu-item-padding-x;
+
+    &:hover,
+    &.is-actived {
+      color: $menu-item-active-color;
+    }
+  }
+
+  .tabs-content {
+    position: absolute;
+    left: 0;
+    color: $body-color;
+  }
+}

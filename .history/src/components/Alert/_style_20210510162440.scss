@@ -1,0 +1,4 @@
+.alert {
+  position: relative;
+  @include alert-style($primary, $primary, $white);
+}

@@ -1,0 +1,8 @@
+.tabs {
+  display: flex;
+}
+.tabs-item {
+  margin-bottom: 30px;
+  list-style: none;
+  box-shadow: $menu-box-shadow;
+}

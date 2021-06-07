@@ -1,0 +1,6 @@
+// transition
+// zoom-in-top
+@include zoom-animation("top", scaleY(0), scaleY(1), top);
+@include zoom-animation("bottom", scaleY(0), scaleY(1), bottom);
+@include zoom-animation("left", scaleX(0), scaleX(1), center left);
+@include zoom-animation("right", scaleX(0), scaleX(1), right);

@@ -1,0 +1,6 @@
+.alert {
+  position: relative;
+  padding: $alert-padding-y $alert-padding-x;
+  border-radius: $alert-border-radius;
+  @include alert-style($primary, $primary, $white);
+}

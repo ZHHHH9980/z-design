@@ -1,0 +1,97 @@
+.z-menu {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 30px;
+  list-style: none;
+  box-shadow: $menu-box-shadow;
+
+  > .menu-item {
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    cursor: pointer;
+    transition: $menu-transition;
+    // horizontal
+    border-bottom: $menu-item-active-border-width solid transparent;
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+
+    &.is-disabled {
+      color: $menu-item-disabled-color;
+      pointer-events: none;
+      cursor: default;
+    }
+
+    &:hover,
+    &.is-actived {
+      color: $menu-item-active-color;
+      border-bottom: $menu-item-active-border-width solid
+        $menu-item-active-color;
+    }
+  }
+  &.menu-vertical {
+    flex-direction: column;
+
+    .menu-item {
+      border-bottom: none;
+      border-left: $menu-item-active-border-width solid transparent;
+      &:hover {
+        border-left: $menu-item-active-border-width solid
+          $menu-item-active-color;
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+.submenu-item {
+  position: relative;
+}
+
+// 菜单栏
+.z-submenu {
+  display: none;
+  list-style: none;
+  padding: $menu-item-padding-y $menu-item-padding-x;
+  transition: $menu-transition;
+
+  &.is-opened {
+    display: block;
+  }
+
+  .menu-item {
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    cursor: pointer;
+    // color: $body-color;
+    /*  &:hover,
+    &.is-actived {
+      color: $menu-item-active-color !important;
+    } */
+  }
+}
+
+// mode = horizontal
+.menu-horizontal {
+  /* .menu-item {
+    cursor: pointer;
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    transition: $menu-transition;
+    color: $body-color;
+
+    &.is-actived,
+    &:hover {
+      display: block;
+      background-color: #fff;
+    }
+  } */
+  .z-submenu {
+    position: absolute;
+    z-index: 100;
+    background: $white;
+    top: calc(100% + 8px);
+    left: 0;
+    border: $menu-border-width solid $menu-border-color;
+    box-shadow: $submenu-box-shadow;
+  }
+}

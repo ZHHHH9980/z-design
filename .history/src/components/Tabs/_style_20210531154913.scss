@@ -1,0 +1,12 @@
+.tabs {
+  display: flex;
+}
+.tabs-label {
+  padding: $menu-item-padding-y $menu-item-padding-x;
+  box-shadow: $menu-box-shadow;
+}
+.tabs-item {
+  cursor: pointer;
+  margin-bottom: 30px;
+  list-style: none;
+}

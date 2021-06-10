@@ -16,6 +16,9 @@ export type ThemeProps =
   | "dark";
 
 export interface IIconProps extends FontAwesomeIconProps {
+  /**
+   * Add a theme
+   */
   theme?: ThemeProps;
 }
 

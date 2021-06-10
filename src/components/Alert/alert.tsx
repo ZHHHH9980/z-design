@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import Icon from "../Icon/icon";
+import Icon from "../Icon/Icon";
 import { Transition } from "../index";
 
 export enum AlertType {

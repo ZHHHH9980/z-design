@@ -109,6 +109,7 @@ module.exports = function (webpackEnv) {
       },
       {
         // Options for PostCSS as we reference these options twice
+        // 根据对应的浏览器添加prefix
         // Adds vendor prefixing based on your specified browser support in
         // package.json
         loader: require.resolve("postcss-loader"),
@@ -226,6 +227,7 @@ module.exports = function (webpackEnv) {
       globalObject: "this",
     },
     optimization: {
+      // 生产环境启用压缩
       minimize: isEnvProduction,
       minimizer: [
         // This is only used in production mode
@@ -270,6 +272,7 @@ module.exports = function (webpackEnv) {
           sourceMap: shouldUseSourceMap,
         }),
         // This is only used in production mode
+        // 压缩css
         new OptimizeCSSAssetsPlugin({
           cssProcessorOptions: {
             parser: safePostCssParser,
@@ -292,6 +295,7 @@ module.exports = function (webpackEnv) {
       // Automatically split vendor and commons
       // https://twitter.com/wSokra/status/969633336732905474
       // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
+      // 代码分割
       splitChunks: {
         chunks: "all",
         name: false,
@@ -476,6 +480,7 @@ module.exports = function (webpackEnv) {
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
               // See https://github.com/webpack/webpack/issues/6571
+              // 对import "style.css" 不进行code splitting
               sideEffects: true,
             },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
@@ -582,6 +587,8 @@ module.exports = function (webpackEnv) {
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       // https://github.com/facebook/create-react-app/issues/5358
+      // 内联runtime文件，少发送一个请求
+      // cross-env INLINE_RUNTIME_CHUNK=true
       isEnvProduction &&
         shouldInlineRuntimeChunk &&
         new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/runtime-.+[.]js/]),

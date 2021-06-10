@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
-import Button from "./button";
+import Button from "./Button";
 
 test("Button Component", () => {
   const wrapper = render(<Button>Nice</Button>);

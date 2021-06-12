@@ -7,6 +7,7 @@ import Tabs from "./Tabs/tabs";
 import TabsItem from "./Tabs/tabsItem";
 import Icon from "./Icon/Icon";
 import Transition from "./Transition/transition";
+import Input from "./Input/Input";
 
 export {
   Button,
@@ -19,4 +20,5 @@ export {
   TabsItem,
   Icon,
   Transition,
+  Input,
 };

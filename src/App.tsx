@@ -12,6 +12,7 @@ import {
   SubMenu,
   Tabs,
   TabsItem,
+  Input,
 } from "./components";
 
 library.add(fas);
@@ -71,6 +72,16 @@ function App() {
         button
       </Button>
       <Alert>123</Alert>
+      <Input value="large input" size="lg"></Input>
+      <Input size="sm"></Input>
+      <Input
+        prepend="http://"
+        append=".com"
+        placeholder="insert"
+        icon="calendar"
+        iconTheme="primary"
+      ></Input>
+      <Input disabled placeholder="insert"></Input>
     </div>
   );
 }

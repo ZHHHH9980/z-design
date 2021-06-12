@@ -72,3 +72,10 @@
     transition: opacity 300ms, transform 300ms;
   }
 }
+
+// input different size control
+@mixin input-size($padding-y, $padding-x, $font-size, $border-radius) {
+  padding: $padding-y $padding-x;
+  font-size: $font-size;
+  border-radius: $border-radius;
+}

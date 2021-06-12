@@ -24,6 +24,7 @@ export interface IIconProps extends FontAwesomeIconProps {
 
 const Icon: React.FC<IIconProps> = (props) => {
   const { className, theme, ...restProps } = props;
+
   const classes = classNames("z-icon", className, {
     // icon-primary
     [`icon-${theme}`]: theme,

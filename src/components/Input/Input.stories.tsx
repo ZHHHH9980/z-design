@@ -7,6 +7,10 @@ export default {
   component: Input,
 } as Meta;
 
+const defaultInput = () => {
+  <Input placeholder="placeholder" />;
+};
+
 const InputSizeCmp: Story<IInputProps> = (args) => {
   return (
     <>
@@ -15,7 +19,6 @@ const InputSizeCmp: Story<IInputProps> = (args) => {
         size="lg"
         placeholder="large "
       ></Input>
-      <Input style={{ marginRight: "10px" }} placeholder="normal"></Input>
       <Input size="sm" placeholder="small"></Input>
     </>
   );

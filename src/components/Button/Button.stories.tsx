@@ -8,6 +8,7 @@ export default {
   parameters: {
     componentSubtitle: "Displays different buttons ",
   },
+  argTypes: { onClick: { action: "clicked" } },
 } as Meta;
 
 const ButtonSizeCmp: Story<ButtonProps> = (args) => {
@@ -26,9 +27,16 @@ const ButtonSizeCmp: Story<ButtonProps> = (args) => {
 const ButtonTypeCmp: Story<ButtonProps> = (args) => {
   return (
     <>
-      <Button btnType="primary">primary</Button>
-      <Button btnType="default">default</Button>
-      <Button btnType="danger">danger</Button>
+      <Button {...args} btnType="primary">
+        primary
+      </Button>
+      <Button {...args} btnType="default">
+        default
+      </Button>
+
+      <Button {...args} btnType="danger">
+        danger
+      </Button>
       <Button style={{ marginLeft: "10px" }} {...args} btnType="link" href="/">
         link to HomePage
       </Button>

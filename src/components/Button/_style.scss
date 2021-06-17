@@ -1,6 +1,7 @@
 .btn {
   position: relative;
   display: inline-block;
+  outline: none;
   font-weight: $btn-font-weight;
   line-height: $btn-line-height;
   color: $body-color;

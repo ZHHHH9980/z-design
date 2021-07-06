@@ -1,0 +1,83 @@
+.z-input-container {
+  display: inline-flex;
+  position: relative;
+  box-shadow: $input-box-shadow;
+  color: $input-color;
+  border: $input-border-color $input-border-width solid;
+  border-radius: $input-border-radius;
+  font-family: $input-font-family;
+  font-size: $input-font-size;
+  font-weight: $input-font-weight;
+  line-height: $input-line-height;
+  color: $input-color;
+  transition: $input-transition;
+  margin-bottom: 20px;
+
+  .input-prepend {
+    border-right: $input-border-width solid $input-border-color;
+    border-radius: $input-border-radius;
+    padding: $input-padding-y $input-padding-x;
+  }
+
+  .input-append {
+    border-left: $input-border-width solid $input-border-color;
+    border-radius: $input-border-radius;
+    padding: $input-padding-y $input-padding-x;
+  }
+}
+
+.z-input {
+  flex-grow: 3;
+  outline: 0;
+  border: 0;
+  padding: $input-padding-y $input-padding-x;
+  background-color: $input-bg;
+  border-radius: $input-border-radius;
+
+  &::placeholder {
+    color: $input-placeholder-color;
+  }
+
+  &:focus {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    box-shadow: $input-focus-box-shadow;
+  }
+
+  &.disabled {
+    background-color: $input-disabled-bg;
+    border-color: $input-border-color;
+    pointer-events: none;
+  }
+
+  &.input-include-icon {
+    padding-right: $alert-padding-y * 1.5;
+  }
+}
+
+.input-lg {
+  @include input-size(
+    $input-padding-y-lg,
+    $input-padding-x-lg,
+    $font-size-lg,
+    $border-radius-lg
+  );
+}
+
+.input-sm {
+  @include input-size(
+    $input-padding-y-sm,
+    $input-padding-x-sm,
+    $font-size-sm,
+    $border-radius-sm
+  );
+}
+
+.input-icon {
+  flex-grow: 1;
+  align-self: center;
+  justify-self: center;
+  position: absolute;
+  right: 10px;
+}

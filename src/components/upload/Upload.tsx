@@ -1,11 +1,15 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, ReactElement, useRef, useState } from "react";
 import axios from "axios";
 import Button from "../button/Button";
 import Alert, { AlertType } from "../alert/Alert";
+import Dragger from "./Dragger";
 import UploadList from "./UploadList";
 
 export type UploadFileStatus = "ready" | "uploading" | "success" | "error";
 export interface UploadFile {
+  /*
+   ** file unique id
+   */
   uid: string;
   size?: number;
   name: string;
@@ -17,14 +21,34 @@ export interface UploadFile {
 }
 
 export interface IUploadProps {
+  /**
+   * request url
+   */
   action: string;
   limitSize?: number;
   defaultFileList?: UploadFile[];
   beforeUpload?: (file: File) => boolean | Promise<File>;
-  onProgress?: (percentage: number, file: File) => void;
-  onSuccess?: (data: any, file: File) => void;
-  onError?: (err: any, file: File) => void;
-  onChange?: (file: File) => void;
+  onProgress?: (percentage: number, file: UploadFile) => void;
+  onSuccess?: (data: any, file: UploadFile) => void;
+  onError?: (err: any, file: UploadFile) => void;
+  /**
+   * fire when upload status change
+   */
+  onChange?: (file: UploadFile) => void;
+  headers?: { [key: string]: any };
+  name?: string;
+  /**
+   *  Custom formdata
+   */
+  data?: { [key: string]: any };
+  /**
+   *  request with cookie
+   */
+  withCredentials?: boolean;
+  accept?: string;
+  multiple?: boolean;
+  children?: string | ReactElement | ReactElement[];
+  drag?: boolean;
 }
 
 const Upload: React.FC<IUploadProps> = (props) => {
@@ -37,6 +61,14 @@ const Upload: React.FC<IUploadProps> = (props) => {
     onChange,
     beforeUpload,
     defaultFileList,
+    name,
+    data,
+    headers,
+    withCredentials,
+    multiple,
+    accept,
+    children,
+    drag,
   } = props;
 
   const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || []);
@@ -55,7 +87,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
       setDescription("file is too big to upload!");
       setShowAlert(true);
       setTimeout(() => {
-        // setShowAlert(false);
+        setShowAlert(false);
       }, 3000);
       return true;
     }
@@ -113,21 +145,32 @@ const Upload: React.FC<IUploadProps> = (props) => {
       raw: file,
     } as UploadFile;
 
-    // init file
-    setFileList([_file, ...fileList]);
+    // Add to file list
+    setFileList((preFileList) => {
+      return [_file, ...preFileList];
+    });
 
     // 拼接传输对象
     // see: https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects
     // File 对象是特殊类型的 Blob，且可以用在任意的 Blob 类型的 context 中。
     // Blob 对象表示一个不可变、原始数据的类文件对象。
     const formData = new FormData();
-    formData.append(file.name, file);
+    formData.append(name || file.name, file);
+    if (data) {
+      Object.keys(data).forEach((key) => {
+        formData.append(key, data[key]);
+      });
+    }
+
     axios
       .post(action, formData, {
         headers: {
           "Content-Type": "mutipart/form-data",
           "Access-Control-Allow-Origin": "*",
+          ...headers,
         },
+        // 也可以简单的理解为，当前请求为跨域类型时是否在请求中协带cookie。
+        withCredentials,
         onUploadProgress: (e: any) => {
           let percentage = Math.round((e.loaded * 100) / e.total) || 0;
 
@@ -140,7 +183,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
           });
           if (percentage < 100) {
             if (onProgress) {
-              onProgress(percentage, file);
+              onProgress(percentage, _file);
             }
           }
         },
@@ -154,11 +197,11 @@ const Upload: React.FC<IUploadProps> = (props) => {
         });
 
         if (onSuccess) {
-          onSuccess(res.data, file);
+          onSuccess(res.data, _file);
         }
 
         if (onChange) {
-          onChange(file);
+          onChange(_file);
         }
       })
       .catch((err: any) => {
@@ -169,10 +212,10 @@ const Upload: React.FC<IUploadProps> = (props) => {
         });
 
         if (onError) {
-          onError(err, file);
+          onError(err, _file);
         }
         if (onChange) {
-          onChange(file);
+          onChange(_file);
         }
       });
   };
@@ -180,7 +223,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
   // input监听到文件传入，开始上传
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-
+    console.log("files", files);
     if (!files) {
       return;
     }
@@ -191,30 +234,58 @@ const Upload: React.FC<IUploadProps> = (props) => {
     }
   };
 
-  console.log("fileList", fileList);
   return (
     <div className="z-upload">
-      <input
-        type="file"
-        id="file"
-        name="file"
-        style={{ display: "none" }}
-        multiple
-        ref={fileInput}
-        onChange={handleFileChange}
-      />
-      <Button btnType="primary" onClick={handleClick}>
-        Upload File
-      </Button>
+      <div className="z-upload-input-container" onClick={handleClick}>
+        <input
+          type="file"
+          id="file"
+          name="file"
+          className="z-upload-file-input"
+          style={{ display: "none" }}
+          multiple={multiple}
+          accept={accept}
+          ref={fileInput}
+          onChange={handleFileChange}
+        />
+        {drag ? (
+          <Dragger
+            onFile={(files) => {
+              uploadFiles(files);
+            }}
+          >
+            {children}
+          </Dragger>
+        ) : (
+          children
+        )}
+      </div>
       <Alert
         alertControl={setShowAlert}
         shouldAlertShow={showAlert}
         description={description}
         alertType={AlertType.Warning}
       />
-      <UploadList fileList={fileList} />
+      <UploadList
+        fileList={fileList}
+        onRemove={(item: UploadFile) => {
+          fileList.forEach((file, index) => {
+            if (file.uid === item.uid) {
+              fileList.splice(index, 1);
+              setFileList([...fileList]);
+            }
+          });
+        }}
+      />
     </div>
   );
 };
 
+Upload.defaultProps = {
+  children: <Button btnType="primary">Upload File</Button>,
+};
+/**
+- Use an avatar for attributing actions or content to specific users.
+- The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
+**/
 export default Upload;

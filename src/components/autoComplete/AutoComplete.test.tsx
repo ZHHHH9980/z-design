@@ -1,5 +1,5 @@
-import React, { ReactElement } from "react";
-import { render } from "@testing-library/react";
+import React from "react";
+import { render, RenderResult } from "@testing-library/react";
 import AutoComplete from "./AutoComplete";
 
 const namesWithVal = [
@@ -17,12 +17,14 @@ const namesWithVal = [
 ];
 
 const testProps = {
-  fetchSuggestions: (query:string) => {return namesWithVal.filter(item => item.value.includes(query))};
+  fetchSuggestions: (query: string) => {
+    return namesWithVal.filter((item) => item.value.includes(query));
+  },
   onSelect: jest.fn(),
-  placeholder: "auto-complete"
+  placeholder: "auto-complete",
 };
 
-let wrapper: ReactElement;
+let wrapper: RenderResult;
 describe("test AutoComplete component", () => {
   beforeEach(() => {
     wrapper = render(<AutoComplete {...testProps} />);

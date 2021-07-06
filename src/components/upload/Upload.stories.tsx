@@ -1,5 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
+import Button from "../button/Button";
+import Icon from "../icon/Icon";
 import Upload, { IUploadProps, UploadFileStatus } from "./Upload";
 
 export default {
@@ -41,8 +43,17 @@ const simpleUpload: Story<IUploadProps> = (props) => {
     <Upload
       action="https://run.mocky.io/v3/4f2ef859-b0f9-4352-9071-19c5be94dfb5"
       defaultFileList={defaultFileList}
+      data={{ key: "value" }}
+      headers={{ "X-powered": "Z" }}
+      multiple
+      drag
+      // accept=".jpg"
       // beforeUpload={checkFileSize}
-    />
+    >
+      <Icon icon="upload" size="5x" theme="primary" />
+      <br />
+      <p>Drag file to upload</p>
+    </Upload>
   );
 };
 export const uploadCmp = simpleUpload.bind({});

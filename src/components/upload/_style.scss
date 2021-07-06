@@ -1,3 +1,7 @@
+.z-upload-input-container {
+  display: inline-block;
+}
+
 .z-upload-list {
   width: 300px;
 }
@@ -8,6 +12,13 @@
   margin-bottom: 0;
   &:hover {
     background: #f5f5f5;
+
+    .upload-file-status {
+      display: none;
+    }
+    .upload-file-actions {
+      display: block;
+    }
   }
 }
 .upload-file {
@@ -21,6 +32,12 @@
 
 .upload-file-name {
   flex: 1;
+}
+
+.upload-file-actions {
+  cursor: pointer;
+  display: none;
+  margin-right: 3px;
 }
 
 .upload-list-item-error {
@@ -51,5 +68,24 @@
     .upload-progress-stroke-#{$key} {
       background: $value;
     }
+  }
+}
+
+// dragger
+.z-upload-dragger {
+  background: $gray-100;
+  border: 4px dashed $gray-300;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 20px;
+  width: 360px;
+  height: 180px;
+  text-align: center;
+  &:hover {
+    border: 4px dashed $primary;
+  }
+  &.is-dragover {
+    border: 4px dashed $primary;
+    background: rgba($primary, 0.2);
   }
 }

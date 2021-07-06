@@ -5,7 +5,7 @@ import Progress from "./Progress";
 
 export interface IUploadListProps {
   fileList?: UploadFile[];
-  onRemove?: () => void;
+  onRemove: (item: UploadFile) => void;
 }
 
 const UploadList: React.FC<IUploadListProps> = (props) => {
@@ -15,7 +15,10 @@ const UploadList: React.FC<IUploadListProps> = (props) => {
       {fileList &&
         fileList.map((file: UploadFile) => {
           return (
-            <li className={`upload-list-item upload-list-item-${file.status}`}>
+            <li
+              className={`upload-list-item upload-list-item-${file.status}`}
+              key={file.uid}
+            >
               <div className="upload-file">
                 <Icon className="upload-file-icon" icon="file-upload" />
                 <span className="upload-file-name">{file.name}</span>
@@ -32,6 +35,9 @@ const UploadList: React.FC<IUploadListProps> = (props) => {
                   {file.status === "error" && (
                     <Icon icon="times-circle" theme="danger" />
                   )}
+                </span>
+                <span className="upload-file-actions">
+                  <Icon icon="times" onClick={() => onRemove(file)} />
                 </span>
               </div>
               {(file.percent as number) > 0 && (

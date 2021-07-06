@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 import classNames from "classnames";
-import { MenuItemProps } from "./menuItem";
+import { MenuItemProps } from "./MenuItem";
 
 type MenuMode = "horizontal" | "vertical";
 type SelectCallback = (selectedIndex: string) => void;
@@ -60,8 +60,7 @@ const Menu: React.FC<BaseMenuProps> = (props) => {
   // 对menu内部的children进行校验
   const renderChildren = () => {
     return React.Children.map(children, (child, index) => {
-      const childElement =
-        child as React.FunctionComponentElement<MenuItemProps>;
+      const childElement = child as React.FunctionComponentElement<MenuItemProps>;
       const displayName = childElement.type.displayName;
 
       if (displayName === "menuItem" || displayName === "subMenu") {

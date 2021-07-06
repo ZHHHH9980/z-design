@@ -13,6 +13,8 @@ import {
   Tabs,
   TabsItem,
   Input,
+  AutoComplete,
+  Upload,
 } from "./components";
 
 library.add(fas);
@@ -72,7 +74,7 @@ function App() {
         button
       </Button>
       <Alert>123</Alert>
-      <Input value="large input" size="lg"></Input>
+      <Input placeholder="large input" size="lg"></Input>
       <Input size="sm"></Input>
       <Input
         prepend="http://"
@@ -82,6 +84,10 @@ function App() {
         iconTheme="primary"
       ></Input>
       <Input disabled placeholder="insert"></Input>
+      <AutoComplete
+        fetchSuggestions={() => new Promise(() => {})}
+      ></AutoComplete>
+      <Upload action=""></Upload>
     </div>
   );
 }

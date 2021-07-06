@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import Menu, { BaseMenuProps } from "./menu";
 import MenuItem from "./menuItem";
-import SubMenu from "./subMenu";
+import SubMenu from "./SubMenu";
 
 const testProps: BaseMenuProps = {
   defaultIndex: "0",

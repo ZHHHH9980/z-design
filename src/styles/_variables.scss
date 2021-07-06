@@ -16,7 +16,8 @@ $purple: #6f42c1 !default;
 $pink: #d63384 !default;
 $red: #dc3545 !default;
 $orange: #fd7e14 !default;
-$yellow: #fadb14 !default;
+// $yellow: #fadb14 !default;
+$yellow: #fffbe5 !default;
 $green: #52c41a !default;
 $teal: #20c997 !default;
 $cyan: #17a2b8 !default;
@@ -221,6 +222,13 @@ $alert-padding-x: 2rem !default;
 
 $alert-border-radius: 0.5rem !default;
 
+// box-shadow
+$alert-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+// font-color
+$warning-font-color: #5c3c00 !default;
+//
+$warning-border-color: rgba($warning-font-color, 0.4) !default;
+
 // menu
 $menu-border-width: $border-width !default;
 $menu-border-color: $border-color !default;
@@ -288,9 +296,15 @@ $input-group-addon-bg: $gray-200 !default;
 $input-group-addon-border-color: $input-border-color !default;
 
 // Progress bars
-
+$progress-border-radius: 4px;
 $progress-font-size: $font-size-base * 0.75 !default;
 $progress-bg: $gray-200 !default;
 $progress-border-radius: $border-radius !default;
 $progress-bar-color: $white !default;
 $progress-bar-transition: width 0.6s ease !default;
+
+$progress-theme-colors: (
+  "primary": $primary,
+  "success": $success,
+  "error": $danger,
+);

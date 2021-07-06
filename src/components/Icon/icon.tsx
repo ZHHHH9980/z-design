@@ -19,7 +19,7 @@ export interface IIconProps extends FontAwesomeIconProps {
   /**
    * Add a theme
    */
-  theme?: ThemeProps;
+  theme?: ThemeProps | undefined;
 }
 
 const Icon: React.FC<IIconProps> = (props) => {

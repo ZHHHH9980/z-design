@@ -8,7 +8,7 @@ export default {
   parameters: {
     componentSubtitle: "Displays different buttons ",
   },
-  argTypes: { onClick: { action: "clicked" } },
+  // argTypes: { onClick: { action: "clicked" } },
 } as Meta;
 
 const ButtonSizeCmp: Story<ButtonProps> = (args) => {

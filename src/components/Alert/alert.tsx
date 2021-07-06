@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import Icon from "../Icon/Icon";
+import Icon from "../icon/Icon";
 import { Transition } from "../index";
 
 export enum AlertType {
@@ -23,30 +23,61 @@ interface BaseAlertProps {
   alertColor?: AlertColor;
   children?: string;
   description?: string;
+  shouldAlertShow?: boolean;
+  alertControl?: Function;
 }
 
 const Alert: React.FC<BaseAlertProps> = (props) => {
+  const {
+    alertType = "default",
+    className,
+    alertColor,
+    children,
+    description,
+    shouldAlertShow,
+    alertControl,
+  } = props;
+
   const [showAlert, setShowAlert] = useState(true);
 
   const handleCloseAlert = () => {
-    setShowAlert(false);
+    if (alertControl) {
+      alertControl(false);
+    } else {
+      setShowAlert(false);
+    }
   };
-
-  const { alertType, className, alertColor, children, description } = props;
 
   const classes = classNames("alert", className, {
     [`alert-${alertType}`]: alertType,
     [`alert-${alertColor}`]: alertColor,
   });
 
+  let alertControlFlag: boolean;
+  alertControlFlag =
+    shouldAlertShow === undefined ? showAlert : shouldAlertShow;
+
   return (
-    <Transition in={showAlert} animation="zoom-in-left" timeout={300}>
-      <div className={classes}>
-        <div>{children}</div>
-        <Icon icon="times" onClick={handleCloseAlert} className="close"></Icon>
-        {description ? <span>{description}</span> : ""}
-      </div>
-    </Transition>
+    <div className="alert-wrapper">
+      <Transition in={alertControlFlag} animation="zoom-in-top" timeout={300}>
+        <div className={classes}>
+          {alertType === AlertType.Warning && (
+            <Icon icon="exclamation-triangle" className="alert-icon" />
+          )}
+          <div>{children}</div>
+          <Icon
+            icon="times"
+            onClick={handleCloseAlert}
+            className="close"
+          ></Icon>
+          {description ? (
+            <span className="alert-description">{description}</span>
+          ) : (
+            ""
+          )}
+        </div>
+      </Transition>
+    </div>
   );
 };
 

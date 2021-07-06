@@ -15,6 +15,7 @@ type animationType =
 } */
 type ITranstionProps = CSSTransitionProps & {
   animation: animationType;
+  timeout: number;
   wrapper?: boolean;
   className?: string;
 };

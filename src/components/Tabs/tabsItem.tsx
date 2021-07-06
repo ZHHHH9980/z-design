@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TabsContext } from "./tabs";
+import { TabsContext } from "./Tabs";
 import classNames from "classnames";
 
 export interface ITabsItemProps {

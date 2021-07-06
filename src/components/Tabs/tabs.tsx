@@ -1,6 +1,6 @@
 import React, { Children, useState } from "react";
 import classNames from "classnames";
-import { ITabsItemProps } from "./tabsItem";
+import { ITabsItemProps } from "./TabsItem";
 
 export interface ItabsProps {
   defaultIndex?: number;
@@ -31,8 +31,7 @@ const Tabs: React.FC<ItabsProps> = ({
   const tabsClasses = classNames("tabs", className);
   const renderChildren = () => {
     const childrenComponent = Children.map(children, (child, i) => {
-      const childElement =
-        child as React.FunctionComponentElement<ITabsItemProps>;
+      const childElement = child as React.FunctionComponentElement<ITabsItemProps>;
       if (childElement.type.displayName === "tabs-item") {
         return React.cloneElement(childElement, { index: i });
       }

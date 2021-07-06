@@ -37,10 +37,12 @@
 }
 
 // alert
-@mixin alert-style($background, $border, $color) {
-  background: $background;
-  border-color: $border;
-  color: $color;
+@mixin alert-style($status, $background, $border, $color) {
+  .alert-#{$status} {
+    background: $background;
+    border-color: $border;
+    color: $color;
+  }
 }
 
 // zoom-in-top

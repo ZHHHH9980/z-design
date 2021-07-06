@@ -1,13 +1,13 @@
 import React from "react";
 import { fireEvent, render } from "@testing-library/react";
-import Input, { InputProps } from "./Input";
+import Input, { IInputProps } from "./Input";
 
-const defaultProps: InputProps = {
+const defaultProps: IInputProps = {
   onChange: jest.fn(),
   placeholder: "test-input",
 };
 
-describe("Input component ", () => {
+describe("input component ", () => {
   it("should render correct defalut input", () => {
     const wrapper = render(<Input {...defaultProps} />);
     const testNode = wrapper.getByPlaceholderText(

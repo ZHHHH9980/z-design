@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react";
 import Icon, { IIconProps } from "./Icon";
 
 export default {
-  title: "Icon",
+  title: "Design System/Icon",
   component: Icon,
   parameters: {
     componentSubtitle: "Displays different buttons ",

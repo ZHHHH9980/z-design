@@ -1,15 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Story, Meta } from "@storybook/react";
 import Input, { IInputProps } from "./Input";
 
 export default {
   title: "Design System/Input",
   component: Input,
+  argTypes: { onfocus: { action: "clicked" } },
 } as Meta;
 
-const defaultInput = () => {
-  <Input placeholder="placeholder" />;
+const ControlledInput = () => {
+  const [value, setValue] = useState("");
+  return (
+    <Input
+      value={value}
+      defaultValue="1"
+      onChange={(e) => {
+        setValue(e.target.value);
+      }}
+    />
+  );
 };
+
+const defaultInput = () => {
+  return (
+    <>
+      <Input placeholder="placeholder" />
+      <ControlledInput />
+    </>
+  );
+};
+export const defaultInputs = defaultInput.bind({});
 
 const InputSizeCmp: Story<IInputProps> = (args) => {
   return (
@@ -20,6 +40,7 @@ const InputSizeCmp: Story<IInputProps> = (args) => {
         placeholder="large "
       ></Input>
       <Input size="sm" placeholder="small"></Input>
+      <Input iconTheme="danger"></Input>
     </>
   );
 };

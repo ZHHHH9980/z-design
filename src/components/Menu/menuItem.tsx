@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { MenuContext } from "./menu";
+import { MenuContext } from "./Menu";
 
 // 限制接收的props
 export interface MenuItemProps {

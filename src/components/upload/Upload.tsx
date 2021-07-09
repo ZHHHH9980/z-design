@@ -31,6 +31,7 @@ export interface IUploadProps {
   onProgress?: (percentage: number, file: UploadFile) => void;
   onSuccess?: (data: any, file: UploadFile) => void;
   onError?: (err: any, file: UploadFile) => void;
+  onRemove?: (file: UploadFile) => void;
   /**
    * fire when upload status change
    */
@@ -59,6 +60,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
     onSuccess,
     onError,
     onChange,
+    onRemove,
     beforeUpload,
     defaultFileList,
     name,
@@ -113,6 +115,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
   // 2. fire beforeUpload
   const uploadFiles = (files: FileList) => {
     let postFiles = Array.from(files);
+
     postFiles.forEach((file) => {
       // 限制文件大小
       if (checkFileSize(file)) {
@@ -175,12 +178,15 @@ const Upload: React.FC<IUploadProps> = (props) => {
           let percentage = Math.round((e.loaded * 100) / e.total) || 0;
 
           console.log("percentage", percentage);
+          console.log("_file", _file);
+
           updateFileList(_file, {
             status: "uploading",
             percent: percentage,
             raw: file,
             name: file.name,
           });
+
           if (percentage < 100) {
             if (onProgress) {
               onProgress(percentage, _file);
@@ -189,6 +195,15 @@ const Upload: React.FC<IUploadProps> = (props) => {
         },
       })
       .then((res: any) => {
+        const successFileStatus = {
+          status: "success" as UploadFileStatus,
+          percent: 100,
+          raw: file,
+          response: res.data,
+        };
+
+        const updatedFile = { ..._file, ...successFileStatus };
+
         updateFileList(_file, {
           status: "success",
           percent: 100,
@@ -197,14 +212,23 @@ const Upload: React.FC<IUploadProps> = (props) => {
         });
 
         if (onSuccess) {
-          onSuccess(res.data, _file);
+          onSuccess(res.data, updatedFile);
         }
 
         if (onChange) {
-          onChange(_file);
+          onChange(updatedFile);
         }
       })
       .catch((err: any) => {
+        const errorFileStatus = {
+          status: "error" as UploadFileStatus,
+          percent: 0,
+          raw: file,
+          response: err,
+        };
+
+        const updatedFile = { ..._file, ...errorFileStatus };
+
         updateFileList(_file, {
           status: "error",
           raw: file,
@@ -212,10 +236,11 @@ const Upload: React.FC<IUploadProps> = (props) => {
         });
 
         if (onError) {
-          onError(err, _file);
+          onError(err, updatedFile);
         }
+
         if (onChange) {
-          onChange(_file);
+          onChange(updatedFile);
         }
       });
   };
@@ -223,7 +248,6 @@ const Upload: React.FC<IUploadProps> = (props) => {
   // input监听到文件传入，开始上传
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    console.log("files", files);
     if (!files) {
       return;
     }
@@ -231,6 +255,16 @@ const Upload: React.FC<IUploadProps> = (props) => {
     uploadFiles(files);
     if (fileInput.current) {
       fileInput.current.value = "";
+    }
+  };
+
+  const handleRemove = (file: UploadFile) => {
+    setFileList((prevList) => {
+      return prevList.filter((item) => item.uid !== file.uid);
+    });
+
+    if (onRemove) {
+      onRemove(file);
     }
   };
 
@@ -266,17 +300,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
         description={description}
         alertType={AlertType.Warning}
       />
-      <UploadList
-        fileList={fileList}
-        onRemove={(item: UploadFile) => {
-          fileList.forEach((file, index) => {
-            if (file.uid === item.uid) {
-              fileList.splice(index, 1);
-              setFileList([...fileList]);
-            }
-          });
-        }}
-      />
+      <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>
   );
 };

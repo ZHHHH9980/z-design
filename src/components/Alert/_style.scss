@@ -1,20 +1,27 @@
-.alert-wrapper {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .alert {
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
   padding: $alert-padding-y $alert-padding-x;
   border-width: 1px;
   border: 1px solid;
   border-radius: $alert-border-radius;
   box-shadow: $alert-box-shadow;
-  @include alert-style("default", $primary, $primary, $white);
+  min-width: 200px;
+
+  .alert-content {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .alert-content-title {
+    display: inline-block;
+  }
+
+  .alert-title {
+    flex-wrap: wrap;
+    font-size: larger;
+  }
 
   .alert-description {
     white-space: nowrap;
@@ -33,6 +40,11 @@
   }
 }
 
+.alert-with-title {
+  display: inline-block;
+}
+
+@include alert-style("default", $primary, $primary, $white);
 @include alert-style("success", $success, $success, $white);
 @include alert-style(
   "warning",

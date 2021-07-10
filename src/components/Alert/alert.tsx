@@ -2,40 +2,46 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import Icon from "../icon/Icon";
 import { Transition } from "../index";
+type AlertType = "success" | "default" | "danger" | "warning";
 
-export enum AlertType {
-  Success = "success",
-  Default = "default",
-  Danger = "danger",
-  Warning = "warning",
-}
-
-export enum AlertColor {
-  Orange = "orange",
-  Blue = "blue",
-  Pink = "pink",
-  Red = "red",
-}
-
-interface BaseAlertProps {
+export interface BaseAlertProps {
   className?: string;
+  /**
+   *  choose alerttype
+   */
   alertType?: AlertType;
-  alertColor?: AlertColor;
+  /**
+   *  disable icon
+   */
+  iconDisabled?: boolean;
   children?: string;
+  /**
+   *  hint
+   */
   description?: string;
+  /**
+   *  custom control Alert
+   */
   shouldAlertShow?: boolean;
+  /**
+   *  custom control Alert function
+   */
   alertControl?: Function;
+  title?: string;
+  style?: React.CSSProperties;
 }
 
 const Alert: React.FC<BaseAlertProps> = (props) => {
   const {
-    alertType = "default",
+    alertType,
+    iconDisabled,
     className,
-    alertColor,
     children,
     description,
     shouldAlertShow,
     alertControl,
+    style,
+    title,
   } = props;
 
   const [showAlert, setShowAlert] = useState(true);
@@ -48,9 +54,9 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
     }
   };
 
-  const classes = classNames("alert", className, {
+  const wrapperClasses = classNames("alert", className, {
     [`alert-${alertType}`]: alertType,
-    [`alert-${alertColor}`]: alertColor,
+    [`alert-with-title`]: title,
   });
 
   let alertControlFlag: boolean;
@@ -58,11 +64,21 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
     shouldAlertShow === undefined ? showAlert : shouldAlertShow;
 
   return (
-    <div className="alert-wrapper">
-      <Transition in={alertControlFlag} animation="zoom-in-top" timeout={300}>
-        <div className={classes}>
-          {alertType === AlertType.Warning && (
+    <Transition in={alertControlFlag} animation="zoom-in-top" timeout={300}>
+      <div className={wrapperClasses} style={style}>
+        <h3 className="alert-title">{title}</h3>
+        <div className="alert-content">
+          {!iconDisabled && alertType === "default" && (
+            <Icon icon="bell" className="alert-icon" />
+          )}
+          {!iconDisabled && alertType === "danger" && (
+            <Icon icon="radiation" className="alert-icon" />
+          )}
+          {!iconDisabled && alertType === "warning" && (
             <Icon icon="exclamation-triangle" className="alert-icon" />
+          )}
+          {!iconDisabled && alertType === "success" && (
+            <Icon icon="check-circle" className="alert-icon" />
           )}
           <div>{children}</div>
           <Icon
@@ -70,20 +86,17 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
             onClick={handleCloseAlert}
             className="close"
           ></Icon>
-          {description ? (
+          {description && (
             <span className="alert-description">{description}</span>
-          ) : (
-            ""
           )}
         </div>
-      </Transition>
-    </div>
+      </div>
+    </Transition>
   );
 };
 
 Alert.defaultProps = {
-  alertType: AlertType.Default,
-  alertColor: AlertColor.Blue,
+  alertType: "default",
 };
 
 export default Alert;

@@ -8,6 +8,8 @@ export default {
   argTypes: { onfocus: { action: "clicked" } },
 } as Meta;
 
+// 受控组件
+/* 
 const ControlledInput = () => {
   const [value, setValue] = useState("");
   return (
@@ -20,12 +22,11 @@ const ControlledInput = () => {
     />
   );
 };
-
+ */
 const defaultInput = () => {
   return (
     <>
       <Input placeholder="placeholder" />
-      <ControlledInput />
     </>
   );
 };
@@ -45,7 +46,7 @@ const InputSizeCmp: Story<IInputProps> = (args) => {
   );
 };
 export const differentSizeInput = InputSizeCmp.bind({});
-differentSizeInput.storyName = "不同尺寸的Input组件";
+differentSizeInput.storyName = "different sizes Input";
 
 const pendInput: Story<IInputProps> = (args) => {
   return (
@@ -57,7 +58,7 @@ const pendInput: Story<IInputProps> = (args) => {
 };
 
 export const pendInputs = pendInput.bind({});
-pendInputs.storyName = "添加前缀、后缀的input组件";
+pendInputs.storyName = "prepend/append Input";
 
 const disableInput: Story<IInputProps> = (args) => {
   return (
@@ -79,4 +80,4 @@ const iconInput: Story<IInputProps> = (args) => {
 };
 
 export const iconStory = iconInput.bind({});
-iconStory.storyName = "带有icon的input";
+iconStory.storyName = "Input With Icon";

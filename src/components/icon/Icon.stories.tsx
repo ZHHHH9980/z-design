@@ -6,15 +6,20 @@ export default {
   title: "Design System/Icon",
   component: Icon,
   parameters: {
-    componentSubtitle: "Displays different buttons ",
+    componentSubtitle: "Base on react-fontawesome",
   },
 } as Meta;
 
-const IconDisplay: Story<IIconProps> = (args) => {
-  return <Icon icon="times"></Icon>;
+const IconDisplay: Story<IIconProps> = () => {
+  return (
+    <>
+      <Icon icon="check" size="3x" style={{ marginRight: "5px" }} />
+      <Icon icon="times" size="3x" />
+    </>
+  );
 };
 
-export const iconShow = IconDisplay.bind({});
-iconShow.args = {
+export const icon = IconDisplay.bind({});
+icon.args = {
   theme: "primary",
 };

@@ -17,6 +17,7 @@ const ButtonSizeCmp: Story<ButtonProps> = (args) => {
       <Button {...args} size={ButtonSize.Large}>
         large
       </Button>
+      <Button {...args}>default</Button>
       <Button {...args} size={ButtonSize.Small}>
         small
       </Button>
@@ -50,8 +51,8 @@ const LinkButton: Story<ButtonProps> = (args) => {
       <Button {...args} btnType="link">
         link
       </Button>
-      <Button style={{ marginLeft: "10px" }} {...args} disabled btnType="link">
-        link
+      <Button style={{ marginLeft: "10px" }} {...args} disabled>
+        disabled
       </Button>
     </>
   );
@@ -61,14 +62,14 @@ differentTypeButton.args = {
   disabled: false,
   btnType: "default",
 };
-differentTypeButton.storyName = "不同类型的Button组件";
+differentTypeButton.storyName = "different types Button";
 export const differentSizeButton = ButtonSizeCmp.bind({});
 differentSizeButton.args = {
   btnType: "primary",
 };
-differentSizeButton.storyName = "不同尺寸的Button组件";
+differentSizeButton.storyName = "different sizes Button";
 export const Link = LinkButton.bind({});
 Link.args = {
   href: "http://www.baidu.com",
 };
-Link.storyName = "带有跳转功能的Button组件";
+Link.storyName = "link Button";

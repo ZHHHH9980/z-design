@@ -30,15 +30,41 @@ const defaultFileList = [
     percent: 0,
   },
 ];
-/* const checkFileSize = (file: File) => {
-  if (Math.round(file.size / 1024) > 50) {
-    alert("file is too big to upload");
-    return false;
-  }
-  return true;
-}; */
 
-const simpleUpload: Story<IUploadProps> = (props) => {
+const defaultUpload: Story<IUploadProps> = (props) => {
+  return (
+    <Upload
+      action="https://run.mocky.io/v3/4f2ef859-b0f9-4352-9071-19c5be94dfb5"
+      defaultFileList={defaultFileList}
+      data={{ key: "value" }}
+      headers={{ "X-powered": "Z" }}
+      multiple
+      // accept=".jpg"
+      // beforeUpload={checkFileSize}
+    ></Upload>
+  );
+};
+
+export const defaultUploadComponent = defaultUpload.bind({});
+
+const customUpload: Story<IUploadProps> = (props) => {
+  return (
+    <Upload
+      action="https://run.mocky.io/v3/4f2ef859-b0f9-4352-9071-19c5be94dfb5"
+      defaultFileList={defaultFileList}
+      multiple
+    >
+      <Button btnType="default">
+        <Icon icon="file-upload" style={{ marginRight: "5px" }} />
+        add component what you want
+      </Button>
+    </Upload>
+  );
+};
+
+export const customUploadComponent = customUpload.bind({});
+
+const dragUpload: Story<IUploadProps> = (props) => {
   return (
     <Upload
       action="https://run.mocky.io/v3/4f2ef859-b0f9-4352-9071-19c5be94dfb5"
@@ -56,4 +82,5 @@ const simpleUpload: Story<IUploadProps> = (props) => {
     </Upload>
   );
 };
-export const uploadCmp = simpleUpload.bind({});
+
+export const dragUploadComponent = dragUpload.bind({});

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ReactElement, useRef, useState } from "react";
 import axios from "axios";
 import Button from "../button/Button";
-import Alert, { AlertType } from "../alert/Alert";
+import Alert from "../alert/Alert";
 import Dragger from "./Dragger";
 import UploadList from "./UploadList";
 
@@ -25,6 +25,9 @@ export interface IUploadProps {
    * request url
    */
   action: string;
+  /**
+   * File size limit
+   */
   limitSize?: number;
   defaultFileList?: UploadFile[];
   beforeUpload?: (file: File) => boolean | Promise<File>;
@@ -298,7 +301,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
         alertControl={setShowAlert}
         shouldAlertShow={showAlert}
         description={description}
-        alertType={AlertType.Warning}
+        alertType="warning"
       />
       <UploadList fileList={fileList} onRemove={handleRemove} />
     </div>

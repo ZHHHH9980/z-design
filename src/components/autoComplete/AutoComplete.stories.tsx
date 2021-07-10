@@ -70,3 +70,4 @@ const simpleComplete: Story<IAutoCompleteProps> = (props) => {
 };
 
 export const smpComplete = simpleComplete.bind({});
+smpComplete.storyName = "default AutoComplete";

@@ -30,16 +30,37 @@ export interface IUploadProps {
    */
   limitSize?: number;
   defaultFileList?: UploadFile[];
+  /**
+   * fire event before upload
+   */
   beforeUpload?: (file: File) => boolean | Promise<File>;
+  /**
+   * fire event during upload
+   */
   onProgress?: (percentage: number, file: UploadFile) => void;
+  /**
+   * fire event after upload successfully
+   */
   onSuccess?: (data: any, file: UploadFile) => void;
+  /**
+   * fire event when upload failed
+   */
   onError?: (err: any, file: UploadFile) => void;
+  /**
+   * click close icon to remove,then excute your custom event
+   */
   onRemove?: (file: UploadFile) => void;
   /**
    * fire when upload status change
    */
   onChange?: (file: UploadFile) => void;
+  /**
+   * custom post header
+   */
   headers?: { [key: string]: any };
+  /**
+   * custom upload file name
+   */
   name?: string;
   /**
    *  Custom formdata
@@ -49,9 +70,19 @@ export interface IUploadProps {
    *  request with cookie
    */
   withCredentials?: boolean;
+  /**
+   *  decide file type
+   * see: https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input
+   */
   accept?: string;
+  /**
+   *  upload multiple files
+   */
   multiple?: boolean;
   children?: string | ReactElement | ReactElement[];
+  /**
+   *  drag file to load
+   */
   drag?: boolean;
 }
 
@@ -309,6 +340,8 @@ const Upload: React.FC<IUploadProps> = (props) => {
 };
 
 Upload.defaultProps = {
+  multiple: true,
+  drag: false,
   children: <Button btnType="primary">Upload File</Button>,
 };
 /**

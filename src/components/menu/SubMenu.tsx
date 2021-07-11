@@ -5,13 +5,13 @@ import { MenuItemProps } from "./MenuItem";
 import { Icon } from "../index";
 import { Transition } from "../index";
 
-export interface IsubMenuProps {
+export interface ISubMenuProps {
   index?: string;
   className?: string;
   title: string;
 }
 
-const SubMenu: React.FC<IsubMenuProps> = ({
+const SubMenu: React.FC<ISubMenuProps> = ({
   index,
   title,
   children,
@@ -64,7 +64,7 @@ const SubMenu: React.FC<IsubMenuProps> = ({
     const childrenComponent = React.Children.map(children, (child, i) => {
       const childElement = child as FunctionComponentElement<MenuItemProps>;
 
-      if (childElement.type.displayName === "menuItem") {
+      if (childElement.type.displayName === "MenuItem") {
         return React.cloneElement(childElement, { index: `${index}-${i}` });
       } else {
         console.error("subMenu child must be MenuItem Component");
@@ -95,5 +95,4 @@ const SubMenu: React.FC<IsubMenuProps> = ({
   );
 };
 
-SubMenu.displayName = "subMenu";
 export default SubMenu;

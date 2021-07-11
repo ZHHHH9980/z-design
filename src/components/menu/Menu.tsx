@@ -1,6 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, FC, useState } from "react";
 import classNames from "classnames";
-import { MenuItemProps } from "./MenuItem";
+import MenuItem, { MenuItemProps } from "./MenuItem";
+import SubMenu, { ISubMenuProps } from "./SubMenu";
 
 type MenuMode = "horizontal" | "vertical";
 type SelectCallback = (selectedIndex: string) => void;
@@ -63,7 +64,8 @@ const Menu: React.FC<BaseMenuProps> = (props) => {
       const childElement = child as React.FunctionComponentElement<MenuItemProps>;
       const displayName = childElement.type.displayName;
 
-      if (displayName === "menuItem" || displayName === "subMenu") {
+      console.log("displayName", displayName);
+      if (displayName === "MenuItem" || displayName === "SubMenu") {
         // clone 之后传入index，就不需要再赋值
         return React.cloneElement(childElement, { index: index.toString() });
       } else {
@@ -71,6 +73,7 @@ const Menu: React.FC<BaseMenuProps> = (props) => {
       }
     });
   };
+
   return (
     <ul className={classes} style={style} data-testid="menu-test">
       <MenuContext.Provider value={passedContext}>
@@ -85,4 +88,14 @@ Menu.defaultProps = {
   mode: "horizontal",
   defaultOpenSubMenu: [],
 };
-export default Menu;
+
+type MenuComponent = FC<BaseMenuProps> & {
+  Item: FC<MenuItemProps>;
+  SubMenu: FC<ISubMenuProps>;
+};
+
+const TransMenu = Menu as MenuComponent;
+TransMenu.Item = MenuItem;
+TransMenu.SubMenu = SubMenu;
+
+export default TransMenu;

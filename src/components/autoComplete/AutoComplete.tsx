@@ -17,12 +17,18 @@ interface DataSourceObject {
 }
 export type DataSourceType<T = {}> = T & DataSourceObject;
 export interface IAutoCompleteProps extends Omit<IInputProps, "onSelect"> {
+  /*
+   ** get data
+   */
   fetchSuggestions: (
     keyword: string
   ) => DataSourceType[] | Promise<DataSourceType[]>;
+  /*
+   ** fire event when item be selected
+   */
   onSelect?: (item: DataSourceType) => void;
   /*
-   ** 支持自定义渲染模板
+   ** Custom rendering template
    */
   renderOptions?: (item: DataSourceType) => React.ReactElement;
 }
@@ -48,7 +54,6 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
   const debounceInputValue = useDebounce(inputValue, 500);
 
   useClickOutside(componentRef, () => {
-    console.log("1", 1);
     setSuggestions([]);
   });
 

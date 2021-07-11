@@ -97,6 +97,8 @@ const Alert: React.FC<BaseAlertProps> = (props) => {
 
 Alert.defaultProps = {
   alertType: "default",
+  iconDisabled: false,
+  shouldAlertShow: true,
 };
 
 export default Alert;

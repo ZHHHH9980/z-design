@@ -3,6 +3,12 @@
 //  submenu-item 下拉菜单
 //    submenu-title 下拉标题
 //    z-submenu 下拉菜单面板
+.menu-item {
+  margin: 0;
+}
+.z-submenu {
+  margin: 0;
+}
 
 .z-menu {
   display: flex;
@@ -16,7 +22,9 @@
     flex-direction: column;
 
     .menu-item {
+      min-width: 200px;
       border-bottom: none;
+      margin-bottom: 0;
       border-left: $menu-item-active-border-width solid transparent;
       &:hover {
         border-left: $menu-item-active-border-width solid
@@ -27,6 +35,7 @@
   }
 
   > .menu-item {
+    margin-bottom: 0;
     padding: $menu-item-padding-y $menu-item-padding-x;
     cursor: pointer;
     transition: $menu-transition;
@@ -75,11 +84,30 @@
     left: 0;
     border: $menu-border-width solid $menu-border-color;
     box-shadow: $submenu-box-shadow;
+    margin-top: 0;
+    padding: 0;
   }
 
   .submenu-item:hover {
     .z-icon {
       transform: rotate(180deg);
+    }
+  }
+}
+
+// 菜单栏
+.z-submenu {
+  list-style: none;
+  padding: 0;
+  // transition: $menu-transition;
+
+  .menu-item {
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    cursor: pointer;
+    color: $body-color;
+    &:hover,
+    &.is-actived {
+      color: $menu-item-active-color !important;
     }
   }
 }
@@ -94,7 +122,6 @@
     &.is-actived,
     &:hover {
       border-bottom: 0px;
-      border-left: $menu-item-active-border-width solid $menu-item-active-color;
     }
   }
 
@@ -103,21 +130,14 @@
       transform: rotate(180deg);
     }
   }
-}
 
-// 菜单栏
-.z-submenu {
-  list-style: none;
-  padding: $menu-item-padding-y $menu-item-padding-x;
-  // transition: $menu-transition;
-
-  .menu-item {
-    padding: $menu-item-padding-y $menu-item-padding-x;
-    cursor: pointer;
-    color: $body-color;
-    &:hover,
-    &.is-actived {
-      color: $menu-item-active-color !important;
+  .z-submenu {
+    margin: 0;
+    > .menu-item {
+      &.is-actived,
+      &:hover {
+        border-color: transparent;
+      }
     }
   }
 }

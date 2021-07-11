@@ -14,17 +14,29 @@ type InputSize = "lg" | "sm";
 export interface IInputProps
   extends Omit<React.InputHTMLAttributes<HTMLElement>, "size"> {
   /**
-   *  选择icon
+   *  choose icon see:  https://fontawesome.com/v5.15/icons?d=gallery&p=2
    */
   icon?: IconProp;
   /**
-   * 选择icon主题颜色
+   * choose icon color
    */
   iconTheme?: ThemeProps;
   className?: string;
+  /**
+   * disable icon
+   */
   disabled?: boolean;
+  /**
+   * choose size
+   */
   size?: InputSize;
+  /**
+   * add append
+   */
   append?: string | ReactElement;
+  /**
+   * add prepend
+   */
   prepend?: string | ReactElement;
   style?: React.CSSProperties;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;

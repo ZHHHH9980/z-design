@@ -40,7 +40,7 @@ const titleAlert: Story<BaseAlertProps> = () => {
   return (
     <>
       <Alert title="title" iconDisabled style={{ marginBottom: "10px" }}>
-        this is a alert!
+        this is a alert,include title and description!
       </Alert>
     </>
   );

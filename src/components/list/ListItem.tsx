@@ -5,8 +5,8 @@ export interface IListItemProps {
 }
 
 const ListItem: React.FC<IListItemProps> = (props) => {
-  const { key } = props;
-  return <li key={key}></li>;
+  const { children } = props;
+  return <li className="z-list-item">{children}</li>;
 };
 
 export default ListItem;

@@ -1,14 +1,33 @@
 import React from "react";
 import lodash from "lodash";
 import { Meta, Story } from "@storybook/react";
-import AutoComplete, {
-  DataSourceType,
-  IAutoCompleteProps,
-} from "./AutoComplete";
+import AutoComplete, { IAutoCompleteProps } from "./AutoComplete";
 
 export default {
   title: "Design System/AutoComplete",
+  parameters: {
+    componentSubtitle:
+      "you can use arrowUp and arrowDown with keyboard to control highlight suggestions",
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  },
   component: AutoComplete,
+  argTypes: {
+    fetchSuggestions: {
+      description: "get data function",
+    },
+    onSelect: {
+      description: "fire event when item be selected",
+    },
+    renderOptions: {
+      description: "custom rendering template",
+    },
+    activeColor: {
+      description: "custom item active Color",
+    },
+  },
 } as Meta;
 
 interface IGithubUser {

@@ -19,6 +19,7 @@ interface DataSourceObject {
 
 type DataSource = DataSourceObject | string;
 export type DataSourceType<T = {}> = T & DataSource;
+
 export interface IAutoCompleteProps extends Omit<IInputProps, "onSelect"> {
   /*
    ** get data
@@ -34,6 +35,7 @@ export interface IAutoCompleteProps extends Omit<IInputProps, "onSelect"> {
    ** Custom rendering template
    */
   renderOptions?: (item: DataSourceType) => React.ReactElement;
+  activeColor?: string;
 }
 
 const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
@@ -42,6 +44,7 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
     onSelect,
     value,
     renderOptions,
+    activeColor,
     ...resProps
   } = props;
 
@@ -134,6 +137,8 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
     setInputValue(value);
+    setShowSuggestions(true);
+
     triggerSearch.current = true;
   };
 
@@ -157,8 +162,15 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
           const cnames = classNames("suggestions-item", {
             "active-suggestions-item": index === highLightIndex,
           });
+
+          let backgroundColor;
+          if (activeColor) {
+            backgroundColor = index === highLightIndex ? activeColor : "";
+          }
+
           return (
             <li
+              style={{ backgroundColor: `${backgroundColor}` }}
               key={index}
               onClick={() => handleSelect(item, index)}
               className={cnames}
@@ -198,6 +210,14 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
   );
 };
 
+AutoComplete.defaultProps = {
+  activeColor: "burlywood",
+};
+
+/**
+- Use an avatar for attributing actions or content to specific users.
+- The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
+**/
 export default AutoComplete;
 /*
 **

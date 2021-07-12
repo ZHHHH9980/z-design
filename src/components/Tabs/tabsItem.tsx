@@ -30,6 +30,7 @@ const TabsItem: React.FC<ITabsItemProps> = ({
       context.onSelect(index);
     }
   };
+
   return (
     <li onClick={handleClick} className={classes}>
       <div className="tabs-label">{label}</div>

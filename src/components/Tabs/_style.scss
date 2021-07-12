@@ -1,6 +1,9 @@
 .tabs {
   display: flex;
+  position: relative;
+  padding: 0;
 }
+
 .tabs-item {
   margin-bottom: 30px;
   list-style: none;
@@ -36,6 +39,7 @@
     left: 0;
     color: $body-color;
     display: none;
+    margin-top: 10px;
     &.is-showed {
       display: block;
     }

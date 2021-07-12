@@ -26,7 +26,7 @@ export const defaultMenus = (args) => {
   return (
     <List
       data={data}
-      renderItem={(item) => <List.Item>{item}</List.Item>}
+      renderItem={(item, index) => <List.Item key={index}>{item}</List.Item>}
       {...args}
     ></List>
   );

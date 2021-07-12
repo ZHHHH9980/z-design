@@ -15,30 +15,29 @@ interface IGithubUser {
   value: string;
   type: string;
 }
+// fake data
+const names = [
+  "a",
+  "b",
+  "c",
+  "how",
+  "zhong",
+  "typescript",
+  "javascript",
+  "react",
+  "babel",
+  "webpack",
+  "nodejs",
+];
 
+const handleFetch = (query: string) => {
+  return names.filter((name) => name.includes(query));
+};
 const simpleComplete: Story<IAutoCompleteProps> = (props) => {
-  // fake data
-  /* const names = [
-    "a",
-    "b",
-    "c",
-    "how",
-    "zhong",
-    "typescript",
-    "javascript",
-    "react",
-    "babel",
-    "webpack",
-    "nodejs",
-  ]; */
-
-  /* const handleFetch = (query: string) => {
-    return names.filter((name) => name.includes(query));
-  }; */
   /*   const handleFetch = (query: string) => {
     return namesWithVal.filter((item) => item.value.includes(query));
   } */
-  const handleFetch = (query: string) => {
+  /* const handleFetch = (query: string) => {
     return fetch(`https://api.github.com/search/users?q=${query}`)
       .then((res) => res.json())
       .then(({ items }) => {
@@ -48,9 +47,9 @@ const simpleComplete: Story<IAutoCompleteProps> = (props) => {
               .map((item: any) => ({ value: item.login, ...item }))
           : [];
       });
-  };
+  }; */
 
-  const renderOptions = (item: DataSourceType) => {
+  /*   const renderOptions = (item: DataSourceType) => {
     const { value, type } = item as IGithubUser;
 
     return (
@@ -59,11 +58,11 @@ const simpleComplete: Story<IAutoCompleteProps> = (props) => {
         <p>{type}</p>
       </>
     );
-  };
+  }; */
 
   return (
     <AutoComplete
-      renderOptions={renderOptions}
+      placeholder="search something..."
       fetchSuggestions={handleFetch}
     ></AutoComplete>
   );
@@ -71,3 +70,17 @@ const simpleComplete: Story<IAutoCompleteProps> = (props) => {
 
 export const smpComplete = simpleComplete.bind({});
 smpComplete.storyName = "default AutoComplete";
+
+const autoCompleteWithIcon: Story<IAutoCompleteProps> = (props) => {
+  return (
+    <AutoComplete
+      icon="search"
+      iconTheme="info"
+      placeholder="autocomplete with icon"
+      prepend="http://"
+      fetchSuggestions={handleFetch}
+    />
+  );
+};
+export const autoCompleteIcon = autoCompleteWithIcon.bind({});
+autoCompleteIcon.storyName = "AutoComplete With icon";

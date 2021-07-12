@@ -4,6 +4,7 @@ import React, {
   useEffect,
   KeyboardEvent,
   useRef,
+  MouseEvent,
 } from "react";
 import lodash from "lodash";
 import classNames from "classnames";
@@ -15,7 +16,9 @@ import useClickOutside from "../../hooks/useClickOutside";
 interface DataSourceObject {
   value: string;
 }
-export type DataSourceType<T = {}> = T & DataSourceObject;
+
+type DataSource = DataSourceObject | string;
+export type DataSourceType<T = {}> = T & DataSource;
 export interface IAutoCompleteProps extends Omit<IInputProps, "onSelect"> {
   /*
    ** get data
@@ -43,9 +46,10 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
   } = props;
 
   const [inputValue, setInputValue] = useState(value as string);
-  const [suggestions, setSuggestions] = useState<DataSourceType[]>([]);
+  const [suggestions, setSuggestions] = useState<DataSource[]>([]);
   const [loading, setLoading] = useState(true);
   const [highLightIndex, setHighLightIndex] = useState(-1);
+  const [showSuggestions, setShowSuggestions] = useState(true);
 
   // 控制选中搜索内容后不再发起搜索请求
   const triggerSearch = useRef(false);
@@ -54,7 +58,7 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
   const debounceInputValue = useDebounce(inputValue, 500);
 
   useClickOutside(componentRef, () => {
-    setSuggestions([]);
+    setShowSuggestions(false);
   });
 
   useEffect(() => {
@@ -84,7 +88,12 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
 
   // 处理点击某个search item
   const handleSelect = (item: DataSourceType, index: number) => {
-    setInputValue(item.value);
+    if (typeof item === "object") {
+      setInputValue(item.value);
+    } else if (typeof item === "string") {
+      setInputValue(item);
+    }
+
     setHighLightIndex(index);
     triggerSearch.current = false;
 
@@ -129,8 +138,16 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
   };
 
   // 支持自定义模板
-  const renderTemplate = (item: DataSourceType) => {
-    return renderOptions ? renderOptions(item) : item.value;
+  const renderTemplate = (item: DataSource) => {
+    if (renderOptions) {
+      renderOptions(item);
+    } else {
+      if (typeof item === "object" && item !== null) {
+        return item.value;
+      } else {
+        return item;
+      }
+    }
   };
 
   const generateDropdown = () => {
@@ -154,6 +171,13 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
     );
   };
 
+  const handleInputClick = (e: MouseEvent) => {
+    e.preventDefault();
+    if (lodash.size(suggestions) && inputValue !== "") {
+      setShowSuggestions(true);
+    }
+  };
+
   return (
     <div className="z-autoComplete-container" ref={componentRef}>
       <Input
@@ -161,6 +185,7 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
         value={inputValue}
         onKeyDown={handleKeyDown}
         onChange={handleChange}
+        onClick={handleInputClick}
         {...resProps}
       />
       {inputValue && loading && (
@@ -168,7 +193,7 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
           <Icon icon="spinner" spin />
         </ul>
       )}
-      {!lodash.isEmpty(suggestions) && generateDropdown()}
+      {!lodash.isEmpty(suggestions) && showSuggestions && generateDropdown()}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import classNames from "classnames";
 
 export enum ButtonSize {
@@ -32,6 +32,10 @@ export interface BaseButtonProps {
    * Control link
    */
   href?: string;
+  /**
+   * custom backgroundColor
+   */
+  backgroundColor?: string;
 }
 
 // 类型整合
@@ -52,6 +56,7 @@ const Button: React.FC<ButtonProps> = ({
   size,
   children,
   href,
+  backgroundColor,
   ...restProps
 }) => {
   // btn, btn-lg, btn-primary
@@ -63,13 +68,23 @@ const Button: React.FC<ButtonProps> = ({
 
   if (btnType === "link" && href && !disabled) {
     return (
-      <a className={classes} href={href} {...restProps}>
+      <a
+        style={{ backgroundColor: backgroundColor }}
+        className={classes}
+        href={href}
+        {...restProps}
+      >
         {children}
       </a>
     );
   } else {
     return (
-      <button className={classes} disabled={disabled} {...restProps}>
+      <button
+        style={{ backgroundColor: backgroundColor }}
+        className={classes}
+        disabled={disabled}
+        {...restProps}
+      >
         {children}
       </button>
     );

@@ -78,7 +78,7 @@
 .menu-horizontal {
   .z-submenu {
     position: absolute;
-    z-index: 100;
+    z-index: 1000;
     background: $white;
     top: calc(100% + 8px);
     left: 0;

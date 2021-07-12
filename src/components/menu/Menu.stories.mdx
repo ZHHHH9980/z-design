@@ -1,0 +1,110 @@
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
+import Menu from "./Menu";
+
+<Meta
+  title="Design System/Menu"
+  parameters={{
+    viewMode: "docs",
+    previewTabs: {
+      canvas: { hidden: true },
+    },
+  }}
+  argTypes={{
+    defaultIndex: {
+      name: "defaultIndex",
+      description: "Available options available to the Badge",
+      control: {
+        type: "text",
+      },
+      table: {
+        type: {
+          summary: "Shows options to the Badge",
+          detail: "Listing of available options",
+        },
+      },
+    },
+    label: {
+      name: "Badge Content",
+      description: "Text shown by Badge",
+      control: {
+        type: "text",
+      },
+      table: {
+        type: {
+          summary: "The label contents",
+          detail: "Text displayed by the Badge",
+        },
+      },
+    },
+  }}
+/>
+
+# Menu
+
+### 组件演示
+
+hover to show or hide subMenu
+
+export const defaultMenus = (args) => {
+  return (
+    <Menu {...args}>
+      <Menu.Item>first item</Menu.Item>
+      <Menu.Item>second item</Menu.Item>
+      <Menu.SubMenu title="submenu title">
+        <Menu.Item>下拉选项1</Menu.Item>
+        <Menu.Item>下拉选项2</Menu.Item>
+      </Menu.SubMenu>
+    </Menu>
+  );
+};
+
+export const subMenu = (args) => {
+  return (
+    <Menu style={{ width: "300px" }} mode="vertical">
+      <Menu.Item>first item</Menu.Item>
+      <Menu.Item>second item</Menu.Item>
+      <Menu.SubMenu title="submenu title">
+        <Menu.Item>下拉选项1</Menu.Item>
+        <Menu.Item>下拉选项2</Menu.Item>
+      </Menu.SubMenu>
+    </Menu>
+  );
+};
+
+<Story name="defaultMenu">{defaultMenus.bind({})}</Story>
+
+### usage
+
+```tsx
+<Menu {...args}>
+  <Menu.Item>first item</Menu.Item>
+  <Menu.Item>second item</Menu.Item>
+  <Menu.SubMenu title="submenu title">
+    <Menu.Item>下拉选项1</Menu.Item>
+    <Menu.Item>下拉选项2</Menu.Item>
+  </Menu.SubMenu>
+</Menu>
+```
+
+<ArgsTable of={Menu} />
+
+## Vertical Menu
+
+### 组件演示
+
+click to show or hide subMenu
+
+<Story name="Menu with SubMenu">{subMenu.bind({})}</Story>
+
+### usage
+
+```tsx
+<Menu style={{ width: "300px" }} mode="vertical">
+  <Menu.Item>first item</Menu.Item>
+  <Menu.Item>second item</Menu.Item>
+  <Menu.SubMenu title="submenu title">
+    <Menu.Item>下拉选项1</Menu.Item>
+    <Menu.Item>下拉选项2</Menu.Item>
+  </Menu.SubMenu>
+</Menu>
+```

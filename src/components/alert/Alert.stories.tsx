@@ -7,14 +7,14 @@ export default {
   component: Alert,
 } as Meta;
 
-const defaultAlert: Story<BaseAlertProps> = () => {
+const defaultAlert: Story<BaseAlertProps> = (args) => {
   return <Alert>this is a alert!</Alert>;
 };
 
 export const deAlert = defaultAlert.bind({});
 deAlert.storyName = "default Alert";
 
-const diffStatusAlert: Story<BaseAlertProps> = () => {
+const diffStatusAlert: Story<BaseAlertProps> = (args) => {
   return (
     <>
       <Alert
@@ -36,7 +36,7 @@ const diffStatusAlert: Story<BaseAlertProps> = () => {
 export const diffStAlert = diffStatusAlert.bind({});
 diffStAlert.storyName = "different status Alert";
 
-const titleAlert: Story<BaseAlertProps> = () => {
+const titleAlert: Story<BaseAlertProps> = (args) => {
   return (
     <>
       <Alert title="title" iconDisabled style={{ marginBottom: "10px" }}>

@@ -2,7 +2,32 @@
   display: flex;
   flex-direction: column;
   width: 500px;
+  position: relative;
 }
+
+.autoComplete-input {
+  margin-bottom: 0;
+}
+
 .active-suggestions-item {
   background-color: burlywood;
+}
+
+.suggestions-container {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  border: 1px solid #dee2e6;
+  box-shadow: $box-shadow;
+
+  .suggestions-item {
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    list-style: none;
+    cursor: pointer;
+    &:hover {
+      color: $menu-item-active-color;
+    }
+  }
 }

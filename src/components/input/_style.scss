@@ -17,12 +17,14 @@
     border-right: $input-border-width solid $input-border-color;
     border-radius: $input-border-radius;
     padding: $input-padding-y $input-padding-x;
+    pointer-events: none;
   }
 
   .input-append {
     border-left: $input-border-width solid $input-border-color;
     border-radius: $input-border-radius;
     padding: $input-padding-y $input-padding-x;
+    pointer-events: none;
   }
 }
 

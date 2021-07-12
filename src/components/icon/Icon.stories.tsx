@@ -6,12 +6,17 @@ export default {
   title: "Design System/Icon",
   component: Icon,
   parameters: {
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
     componentSubtitle:
       "Base on react-fontawesome, see https://fontawesome.com/v5.15/icons",
   },
 } as Meta;
 
-const IconDisplay: Story<IIconProps> = () => {
+const IconDisplay: Story<IIconProps> = (args) => {
   return (
     <>
       <Icon icon="check" size="3x" style={{ marginRight: "5px" }} />

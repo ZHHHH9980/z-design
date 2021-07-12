@@ -102,4 +102,4 @@ const autoCompleteWithIcon: Story<IAutoCompleteProps> = (props) => {
   );
 };
 export const autoCompleteIcon = autoCompleteWithIcon.bind({});
-autoCompleteIcon.storyName = "AutoComplete With icon";
+autoCompleteIcon.storyName = "AutoComplete with icon";

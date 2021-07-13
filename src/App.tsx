@@ -5,7 +5,6 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Button,
-  ButtonSize,
   Alert,
   Menu,
   MenuItem,
@@ -61,7 +60,7 @@ function App() {
       </Tabs>
       <Button
         btnType="link"
-        size={ButtonSize.Large}
+        size="lg"
         target="_blank"
         href="http://www.baidu.com"
       >
@@ -70,7 +69,7 @@ function App() {
       <Button btnType="default">default</Button>
       <Button btnType="primary">button</Button>
       <Button btnType="danger">button</Button>
-      <Button size={ButtonSize.Small} disabled>
+      <Button size="sm" disabled>
         button
       </Button>
       <Alert>123</Alert>

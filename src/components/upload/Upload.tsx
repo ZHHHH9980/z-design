@@ -1,6 +1,7 @@
 import React, { ChangeEvent, ReactElement, useRef, useState } from "react";
 import axios from "axios";
 import Button from "../button/Button";
+import Icon from "../icon/Icon";
 import Alert from "../alert/Alert";
 import Dragger from "./Dragger";
 import UploadList from "./UploadList";
@@ -302,6 +303,39 @@ const Upload: React.FC<IUploadProps> = (props) => {
     }
   };
 
+  console.log("children", children);
+
+  const renderChildren = () => {
+    if (children) {
+      return drag ? (
+        <Dragger
+          onFile={(files) => {
+            uploadFiles(files);
+          }}
+        >
+          {children}
+        </Dragger>
+      ) : (
+        children
+      );
+    } else {
+      // handle children is undefined but drag indeed
+      return drag ? (
+        <Dragger
+          onFile={(files) => {
+            uploadFiles(files);
+          }}
+        >
+          <Icon icon="upload" size="5x" theme="primary" />
+          <br />
+          <p>Drag file to upload</p>
+        </Dragger>
+      ) : (
+        <Button btnType="primary">upload button</Button>
+      );
+    }
+  };
+
   return (
     <div className="z-upload">
       <div className="z-upload-input-container" onClick={handleClick}>
@@ -316,17 +350,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
           ref={fileInput}
           onChange={handleFileChange}
         />
-        {drag ? (
-          <Dragger
-            onFile={(files) => {
-              uploadFiles(files);
-            }}
-          >
-            {children}
-          </Dragger>
-        ) : (
-          children
-        )}
+        {renderChildren()}
       </div>
       <Alert
         alertControl={setShowAlert}
@@ -342,7 +366,6 @@ const Upload: React.FC<IUploadProps> = (props) => {
 Upload.defaultProps = {
   multiple: true,
   drag: false,
-  children: <Button btnType="primary">Upload File</Button>,
 };
 /**
 - Use an avatar for attributing actions or content to specific users.

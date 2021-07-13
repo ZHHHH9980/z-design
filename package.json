@@ -2,6 +2,9 @@
   "name": "zdesign",
   "version": "0.1.0",
   "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "dependencies": {
     "@babel/core": "7.12.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
@@ -82,11 +85,13 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "build": "npm run clean && npm run build-ts && npm run build-css",
     "test": "node scripts/test.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "clean": "rm -rf ./build"
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
+    "clean": "rm -rf ./dist"
   },
   "eslintConfig": {
     "extends": [

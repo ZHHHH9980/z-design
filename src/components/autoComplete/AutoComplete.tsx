@@ -91,7 +91,8 @@ const AutoComplete: React.FC<IAutoCompleteProps> = (props) => {
 
   // 处理点击某个search item
   const handleSelect = (item: DataSourceType, index: number) => {
-    if (typeof item === "object") {
+    if (typeof item === "object" && item !== null) {
+      // @ts-ignore
       setInputValue(item.value);
     } else if (typeof item === "string") {
       setInputValue(item);

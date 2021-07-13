@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import classNames from "classnames";
 
 export type ButtonSize = "sm" | "lg";

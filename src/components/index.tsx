@@ -1,4 +1,3 @@
-import react from "react";
 import Button from "./button/Button";
 import Alert from "./alert/Alert";
 import Menu from "./menu/Menu";

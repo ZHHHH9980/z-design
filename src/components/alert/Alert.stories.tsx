@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Alert, { BaseAlertProps } from "./Alert";
 import { Story, Meta } from "@storybook/react";
 

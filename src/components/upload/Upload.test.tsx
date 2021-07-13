@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   fireEvent,
   render,
@@ -119,7 +119,7 @@ describe("test upload component", () => {
   });
 
   it("drags and drops files should work fine", async () => {
-    const { queryByText } = wrapper;
+    // const { queryByText } = wrapper;
 
     fireEvent.dragOver(uploadArea);
     expect(uploadArea).toHaveClass("is-dragover");

@@ -1,5 +1,4 @@
 import React from "react";
-import lodash from "lodash";
 import { Meta, Story } from "@storybook/react";
 import AutoComplete, { IAutoCompleteProps } from "./AutoComplete";
 
@@ -30,10 +29,10 @@ export default {
   },
 } as Meta;
 
-interface IGithubUser {
+/* interface IGithubUser {
   value: string;
   type: string;
-}
+} */
 // fake data
 const names = [
   "a",

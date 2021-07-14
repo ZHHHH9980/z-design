@@ -329,7 +329,7 @@ const Upload: React.FC<IUploadProps> = (props) => {
           <p>Drag file to upload</p>
         </Dragger>
       ) : (
-        <Button btnType="primary">upload button</Button>
+        <Button btnType="primary">upload</Button>
       );
     }
   };

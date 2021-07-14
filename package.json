@@ -39,7 +39,7 @@
     "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "clean": "rm -rf ./dist",
     "lint": "eslint --ext js,ts,tsx src",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "eslintConfig": {
     "extends": [

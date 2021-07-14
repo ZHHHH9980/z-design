@@ -1,6 +1,6 @@
 {
   "name": "zdesign",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "description": "React UI component library",
   "main": "dist/index.js",
@@ -8,6 +8,11 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "React",
+    "UI",
+    "library"
   ],
   "license": "MIT",
   "dependencies": {

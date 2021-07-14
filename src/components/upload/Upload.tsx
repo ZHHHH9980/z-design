@@ -303,8 +303,6 @@ const Upload: React.FC<IUploadProps> = (props) => {
     }
   };
 
-  console.log("children", children);
-
   const renderChildren = () => {
     if (children) {
       return drag ? (

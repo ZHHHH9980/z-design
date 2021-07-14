@@ -6,32 +6,30 @@ import {
   cleanup,
   waitFor,
 } from "@testing-library/react";
-import Menu, { BaseMenuProps } from "./menu";
-import MenuItem from "./menuItem";
-import SubMenu from "./SubMenu";
+import Menu, { IMenuProps } from "./Menu";
 
-const testProps: BaseMenuProps = {
+const testProps: IMenuProps = {
   defaultIndex: "0",
   onSelect: jest.fn(),
   className: "test",
 };
 
-const testVerProps: BaseMenuProps = {
+const testVerProps: IMenuProps = {
   defaultIndex: "0",
   mode: "vertical",
 };
 
-const generateMenu = (props: BaseMenuProps) => {
+const generateMenu = (props: IMenuProps) => {
   return (
     <Menu {...props}>
-      <MenuItem index="0">active</MenuItem>
-      <MenuItem index="1" disabled>
+      <Menu.Item index="0">active</Menu.Item>
+      <Menu.Item index="1" disabled>
         disabled
-      </MenuItem>
-      <MenuItem index="2">xyz</MenuItem>
-      <SubMenu title="dropdown">
-        <MenuItem>drop1</MenuItem>
-      </SubMenu>
+      </Menu.Item>
+      <Menu.Item index="2">xyz</Menu.Item>
+      <Menu.SubMenu title="dropdown">
+        <Menu.Item>drop1</Menu.Item>
+      </Menu.SubMenu>
     </Menu>
   );
 };
@@ -98,7 +96,6 @@ describe("test menu and menuItem component", () => {
   });
 
   it("should show dropdown items when hover on subMenu", async () => {
-    expect(wrapper.queryByText("drop1")).not.toBeVisible();
     const dropdownElement = wrapper.getByText("dropdown");
     fireEvent.mouseEnter(dropdownElement);
     // 延迟显示测试
